@@ -40,6 +40,10 @@ function appReady () {
     return ext.indexOf('md') > 0 || ext.indexOf('markdown') > 0
   }
 
+  if (input == undefined) {
+    return app.quit();
+  }
+
   if (isMarkdown(input)) {
     var opts = {}
 
@@ -86,7 +90,24 @@ function render (indexUrl, output) {
     landscape: argv.l || argv.landscape || false
   }
 
+  var pageMargin = [
+    argv.T || argv.marginTop || '0.4in',
+    argv.R || argv.marginRight || '0.4in',
+    argv.B || argv.marginBottom || '0.4in',
+    argv.L || argv.marginLeft || '0.4in'
+  ];
+
+  var pageSize = [argv.W || argv.width || "8.3in", argv.H || argv.height || "11.7in"];
+
   win.webContents.on('did-finish-load', function () {
+
+    var cssPageRule = [
+      cssProperty('margin', pageMargin),
+      cssProperty('size', pageSize),
+    ].join(";");
+
+    win.webContents.insertCSS(`@page { ${cssPageRule}; };`);
+
     win.webContents.printToPDF(opts, function (err, data) {
       if (err) {
         console.error(err)
@@ -108,4 +129,8 @@ function usage (code) {
   rs.on('close', function () {
     if (code) process.exit(code)
   })
+}
+
+function cssProperty(name, value) {
+  return [name, value.join(" ")].join(":");
 }

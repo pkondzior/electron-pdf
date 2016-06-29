@@ -12,12 +12,25 @@ Options
                                false - default
   -p | --pageSize            String - Can be A3, A4, A5, Legal, Letter, Tabloid or an Object containing height and width in microns
                                "A4" - default
-  -l | --landscape           Boolean - true for landscape, false for portrait.
-                               false - default
   -m | --marginType          Integer - Specify the type of margins to use
                                0 - default
                                1 - none
                                2 - minimum
+                               3 - custom
+  -l | --landscape           Boolean - true for landscape, false for portrait.
+                               false - default
+  -W | --height              Page height in CSS length units
+                               "11.7in" - default
+  -H | --width               Page width in CSS length units
+                               "8.3in" - default
+  -T | --marginTop           Top margin in CSS length
+                               "0.4in" - default
+  -R | --marginRight         Right margin in CSS length
+                               "0.4in" - default
+  -B | --marginBottom        Bottom margin in CSS length
+                               "0.4in" - default
+  -L | --marginLeft          Left margin in CSS length
+                               "0.4in" - default
   -d | --disableCache        Disable HTTP caching
 
 Usage
